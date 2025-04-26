@@ -1,0 +1,5 @@
+/.idea/
+/__MACOSX/
+/src/tmp/
+/src/QuoteEngine/tmp/
+/src/QuoteEngine/test.py
