@@ -1,9 +1,22 @@
+"""MemeEngine module to generate memes."""
 import os
 from random import randint
 from PIL import Image, ImageDraw, ImageFont
 
+
 class MemeEngine:
+    """MemeEngine module to generate memes."""
+
     def __init__(self, output_dir: str):
+        """Initialize the Meme Generator.
+
+        Args:
+            output_dir (str): The directory where generated memes will be saved.
+
+        Raises:
+            ValueError: If output_dir is not a valid directory path.
+            PermissionError: If the output directory is not writable.
+        """
         self.output_dir = output_dir
         if not os.path.exists(output_dir):
             try:
@@ -11,7 +24,9 @@ class MemeEngine:
             except OSError as e:
                 raise Exception(f"Error creating output directory: {e}")
 
-    def make_meme(self, img_path: str, text: str, author: str, width: int = 500) -> str:
+    def make_meme(
+            self, img_path: str, text: str, author: str, width: int = 500
+    ) -> str:
         """
         Create a meme by adding text and an author to the image.
 
@@ -28,7 +43,9 @@ class MemeEngine:
         try:
             img = Image.open(img_path)
         except Exception as e:
-            raise FileNotFoundError(f"Error opening image file {img_path}: {e}")
+            raise FileNotFoundError(
+                f"Error opening image file {img_path}: {e}"
+            )
 
         # Resize the image
         try:

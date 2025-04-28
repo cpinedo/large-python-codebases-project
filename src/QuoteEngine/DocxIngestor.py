@@ -1,3 +1,4 @@
+"""DOCXIngestor."""
 import docx
 from typing import List
 
@@ -6,9 +7,7 @@ from src.QuoteEngine.models.QuoteModel import QuoteModel
 
 
 class DocxIngestor(IngestionInterface):
-    """
-    Ingestor for .docx files that extracts quotes into QuoteModel instances.
-    """
+    """Ingestor for .docx files that extracts quotes into QuoteModel instances."""
 
     allowed_extensions = ['docx']
 
@@ -27,12 +26,15 @@ class DocxIngestor(IngestionInterface):
             List[QuoteModel]: A list of quotes parsed from the file.
 
         Raises:
-            ValueError: If the file format is unsupported or line format is invalid.
+            ValueError: If the file format is unsupported or line format
+                is invalid.
             FileNotFoundError: If the file does not exist.
             Exception: For general read or parsing issues.
         """
         if not cls.can_ingest(path):
-            raise ValueError(f"Cannot ingest file with unsupported extension: {path}")
+            raise ValueError(
+                f"Cannot ingest file with unsupported extension: {path}"
+            )
 
         quotes = []
         try:
@@ -48,6 +50,8 @@ class DocxIngestor(IngestionInterface):
                     quote = QuoteModel(body.strip('" '), author.strip())
                     quotes.append(quote)
                 except ValueError:
-                    raise ValueError(f"Invalid line format in DOCX file: '{text}'")
+                    raise ValueError(
+                        f"Invalid line format in DOCX file: '{text}'"
+                    )
 
         return quotes

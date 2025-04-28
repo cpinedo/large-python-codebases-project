@@ -1,10 +1,12 @@
+"""QuoteModel."""
+
+
 class QuoteModel:
-    """
-    A class that represents a quote with a body and an author.
-    """
+    """A class that represents a quote with a body and an author."""
+
     def __init__(self, body: str, author: str):
         """
-        Initializes a new quote with the given body and author.
+        Initialize a new quote with the given body and author.
 
         Args:
             body (str): The content of the quote.
@@ -15,9 +17,9 @@ class QuoteModel:
 
     def __str__(self) -> str:
         """
-       Returns a string representation of the quote.
+        Return a string representation of the quote.
 
-       Returns:
-           str: The quote formatted as '"quote" - author'.
-       """
+        Returns:
+            str: The quote formatted as '"quote" - author'.
+        """
         return f'"{self.body}" - {self.author}'

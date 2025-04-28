@@ -1,3 +1,5 @@
+"""PDFIngestor."""
+
 from typing import List
 import subprocess
 import os
@@ -10,6 +12,7 @@ from src.QuoteEngine.models.QuoteModel import QuoteModel
 class PDFIngestor(IngestionInterface):
     """
     Ingestor for PDF files using the external `pdftotext` utility.
+
     Converts PDF to text and parses quotes.
     """
 
@@ -30,7 +33,8 @@ class PDFIngestor(IngestionInterface):
             List[QuoteModel]: A list of parsed quotes.
 
         Raises:
-            ValueError: If the file cannot be ingested or a line is improperly formatted.
+            ValueError: If the file cannot be ingested or a line
+            is improperly formatted.
             RuntimeError: If `pdftotext` fails.
             FileNotFoundError: If the PDF file is not found.
         """
@@ -43,7 +47,9 @@ class PDFIngestor(IngestionInterface):
 
             result = subprocess.call(['pdftotext', '-layout', path, tmp])
             if result != 0 or not os.path.exists(tmp):
-                raise RuntimeError(f"pdftotext failed or did not create output file: {tmp}")
+                raise RuntimeError(
+                    f"pdftotext failed or did not create output file: {tmp}"
+                )
 
             quotes = []
             with open(tmp, 'r', encoding='utf-8') as file_ref:
@@ -52,14 +58,20 @@ class PDFIngestor(IngestionInterface):
                     if line:
                         try:
                             body, author = line.split(' - ')
-                            quotes.append(QuoteModel(body.strip('" '), author.strip()))
+                            quotes.append(
+                                QuoteModel(body.strip('" '), author.strip())
+                            )
                         except ValueError:
-                            raise ValueError(f"Invalid line format in PDF text: '{line}'")
+                            raise ValueError(
+                                f"Invalid line format in PDF text: '{line}'"
+                            )
 
             return quotes
 
         except FileNotFoundError as e:
-            raise FileNotFoundError(f"PDF file not found: {path}") from e
+            raise FileNotFoundError(
+                f"PDF file not found: {path}"
+            ) from e
 
         finally:
             if os.path.exists(tmp):

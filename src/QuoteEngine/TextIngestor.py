@@ -1,3 +1,5 @@
+"""TextIngestor."""
+
 import csv
 from typing import List
 
@@ -7,7 +9,8 @@ from src.QuoteEngine.models.QuoteModel import QuoteModel
 
 class TextIngestor(IngestionInterface):
     """
-    Ingestor for plain text (.txt) files that contain quotes in the format:
+    Ingestor for plain text (.txt) files that contain quotes in the format.
+
     "quote body" - author
     """
 
@@ -25,7 +28,8 @@ class TextIngestor(IngestionInterface):
             List[QuoteModel]: A list of parsed quotes.
 
         Raises:
-            ValueError: If the file cannot be ingested or a line is improperly formatted.
+            ValueError: If the file cannot be ingested or a
+            line is improperly formatted.
             FileNotFoundError: If the TXT file does not exist.
         """
         if not cls.can_ingest(path):
@@ -40,9 +44,13 @@ class TextIngestor(IngestionInterface):
                         continue
                     try:
                         body, author = text.split(" - ")
-                        quotes.append(QuoteModel(body.strip('" '), author.strip()))
+                        quotes.append(
+                            QuoteModel(body.strip('" '), author.strip())
+                        )
                     except ValueError:
-                        raise ValueError(f"Invalid line format in TXT file: '{text}'")
+                        raise ValueError(
+                            f"Invalid line format in TXT file: '{text}'"
+                        )
         except FileNotFoundError as e:
             raise FileNotFoundError(f"TXT file not found: {path}") from e
 

@@ -1,3 +1,4 @@
+"""Ingestor Strategy Factory."""
 from typing import List
 from src.QuoteEngine.CSVIngestor import CSVIngestor
 from src.QuoteEngine.DocxIngestor import DocxIngestor
@@ -9,8 +10,11 @@ from src.QuoteEngine.TextIngestor import TextIngestor
 
 class Ingestor(IngestionInterface):
     """
-    A generic Ingestor that selects the appropriate ingestor (CSV, DOCX, PDF, or TXT)
-    based on the file extension and returns a list of QuoteModel instances.
+    A generic Ingestor.
+
+    selects the appropriate ingestor (CSV, DOCX, PDF, or TXT)
+    based on the file extension and returns a list of
+    QuoteModel instances.
     """
 
     importers = [DocxIngestor, CSVIngestor, PDFIngestor, TextIngestor]
@@ -18,7 +22,9 @@ class Ingestor(IngestionInterface):
     @classmethod
     def parse(cls, path: str) -> List[QuoteModel]:
         """
-        Parse a file into a list of QuoteModel instances, based on its format (CSV, DOCX, PDF, or TXT).
+        Parse a file into a list of QuoteModel instances.
+
+        based on its format (CSV, DOCX, PDF, or TXT).
 
         Args:
             path (str): The file path to the file to be ingested.

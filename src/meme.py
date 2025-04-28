@@ -1,3 +1,5 @@
+"""CLI meme generation tool."""
+
 import os
 import random
 import argparse
@@ -8,7 +10,7 @@ from src.QuoteEngine.models.QuoteModel import QuoteModel
 
 
 def generate_meme(path=None, body=None, author=None):
-    """ Generate a meme given an path and a quote """
+    """Generate a meme given a path and a quote."""
     img = None
     quote = None
 
@@ -43,11 +45,28 @@ def generate_meme(path=None, body=None, author=None):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Generate a meme from an image and a quote.")
+    parser = argparse.ArgumentParser(
+        description="Generate a meme from an image and a quote."
+    )
 
-    parser.add_argument('--path', type=str, help='Path to an image file', required=False)
-    parser.add_argument('--body', type=str, help='Quote body to add to the image', required=False)
-    parser.add_argument('--author', type=str, help='Author of the quote', required=False)
+    parser.add_argument(
+        '--path',
+        type=str,
+        help='Path to an image file',
+        required=False
+    )
+    parser.add_argument(
+        '--body',
+        type=str,
+        help='Quote body to add to the image',
+        required=False
+    )
+    parser.add_argument(
+        '--author',
+        type=str,
+        help='Author of the quote',
+        required=False
+    )
 
     args = parser.parse_args()
 

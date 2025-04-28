@@ -1,3 +1,5 @@
+"""CSVIngestor."""
+
 import pandas as pd
 from typing import List
 
@@ -7,7 +9,9 @@ from src.QuoteEngine.models.QuoteModel import QuoteModel
 
 class CSVIngestor(IngestionInterface):
     """
-    Ingestor for CSV files that extracts quotes and authors into QuoteModel instances.
+    Ingestor for CSV files.
+
+    extracts quotes and authors into QuoteModel instances.
     """
 
     allowed_extensions = ['csv']
@@ -30,7 +34,9 @@ class CSVIngestor(IngestionInterface):
             KeyError: If required columns are missing.
         """
         if not cls.can_ingest(path):
-            raise ValueError(f"Cannot ingest file with unsupported extension: {path}")
+            raise ValueError(
+                f"Cannot ingest file with unsupported extension: {path}"
+            )
 
         try:
             df = pd.read_csv(path, encoding='utf-8')
